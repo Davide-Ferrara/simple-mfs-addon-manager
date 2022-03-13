@@ -64,8 +64,8 @@ class App:
                     dpg.add_menu_item(label='Exit', callback=lambda: dpg.destroy_context())
                 
                 with dpg.menu(label='Help'):
-                    dpg.add_menu_item(label="About", callback=lambda : webbrowser.open('https://www.facebook.com/TailstrikeDesigns'))
-                    dpg.add_menu_item(label="Github", callback=lambda : webbrowser.open('https://www.github.com'))
+                    dpg.add_menu_item(label="About", callback=lambda : webbrowser.open('https://github.com/Davide-Ferrara'))
+                    dpg.add_menu_item(label="Github", callback=lambda : webbrowser.open('https://github.com/Davide-Ferrara/simple-mfs-addon-manager'))
 
             dpg.add_separator()
             dpg.add_separator()
