@@ -14,7 +14,6 @@ STEAM_CONTENT_PATH = os.getenv('LOCALAPPDATA') + '\Microsoft Flight Simulator\Lo
 CONTENT_XML = ET.parse(WINDOWS_CONTENT_XML_PATH)
 CONTENT_XML_ROOT = CONTENT_XML.getroot() # XML TREE
 
-#os.chdir(r'C:\Users\dadro\Documents\Simple_Addon_Manager')
 
 search_id = 0 # to be filled out later
 
@@ -36,7 +35,6 @@ def get_total_pkg_status() -> tuple:
 
 def get_search_input(search_id):
     print(dpg.get_value(search_id))
-
 
 class App:
     def __init__(self, app_title: str, width: int, height: int):
@@ -75,9 +73,7 @@ class App:
             total_pkg_status['Enabled Packages'] = get_total_pkg_status()[0] - len(default_pkg_list) 
             total_pkg_status['Disabled Packages'] = get_total_pkg_status()[1]
             
-            for key,values in total_pkg_status.items():
-                print(key,values)
-
+            
             with dpg.table(header_row=False, row_background=True,
                    borders_innerH=True, borders_outerH=True, borders_innerV=True,
                    borders_outerV=True):
@@ -94,10 +90,6 @@ class App:
                 with dpg.table_row():
                        for keys,values in total_pkg_status.items():
                             dpg.add_text(f"{keys} = {values} ")
-                            
-                            
-                
-                
 
 
             #Search_Bar.add_earch_bar()
