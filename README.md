@@ -8,4 +8,4 @@ I can disable all the package I want and get faster load time, try it if you wan
 
 ![alt text](https://raw.githubusercontent.com/Davide-Ferrara/simple-mfs-addon-manager/main/img/demo.png)
 
-*** I'm not an experienced developer, I'm still studying at university, pleasefeel free to help me and fix stuff or add features, thanks! ***
+*** I'm not an experienced developer, I'm still studying at university, please feel free to help me and fix stuff or add features, thanks! ***
