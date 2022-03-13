@@ -14,6 +14,7 @@ STEAM_CONTENT_PATH = os.getenv('LOCALAPPDATA') + '\Microsoft Flight Simulator\Lo
 CONTENT_XML = ET.parse(WINDOWS_CONTENT_XML_PATH)
 CONTENT_XML_ROOT = CONTENT_XML.getroot() # XML TREE
 
+      
 
 search_id = 0 # to be filled out later
 
@@ -41,33 +42,50 @@ class App:
         self.app_title = app_title
         self.width = width
         self.height = height
-        dpg.create_context()
+        
         
     def main_window(self):
-        width, height, channels, data = dpg.load_image('img\logo.png') # 0: width, 1: height, 2: channels, 3: data
+        dpg.create_context()
+
+        '''
+        width, height, channels, data  = dpg.load_image('img\logo.png') 
+        
         with dpg.texture_registry():
                 dpg.add_static_texture(width, height, data, tag="image_id")
+        '''       
+         
 
         with dpg.window(label=None, width=self.width, height=self.height, tag="Primary Window"):
-
-            Toolbar()
+            
+            #TOOLBAR
+            with dpg.viewport_menu_bar():
+                with dpg.menu(label='File'):
+                    dpg.add_menu_item(label='Save', callback=None)
+                    dpg.add_menu_item(label='Exit', callback=lambda: dpg.destroy_context())
+                
+                with dpg.menu(label='Help'):
+                    dpg.add_menu_item(label="About", callback=lambda : webbrowser.open('https://www.facebook.com/TailstrikeDesigns'))
+                    dpg.add_menu_item(label="Github", callback=lambda : webbrowser.open('https://www.github.com'))
 
             dpg.add_separator()
-
+            dpg.add_separator()
+            dpg.add_separator()
+            '''
             # ADDING LOGO
             with dpg.drawlist(width=500, height=100):
-                    dpg.draw_image("image_id", (0, 0), (500, 200), uv_min=(0, 0), uv_max=(1, 1))
+                    #dpg.draw_image("image_id", (0, 0), (500, 200), uv_min=(0, 0), uv_max=(1, 1))
+            '''
             
             # ADDING LANDING TEXT
             dpg.add_text('\t\t\t\tWelcome to Simple Addon Manager!')
             dpg.add_text('\t  Enable or Disable your Addons using the checkbox below :)')
             dpg.add_separator()
-
+            
             default_pkg_list = Content_XML().get_custom_pkg_list_list(None, None)[4]
             ms_pkg_list_list = Content_XML().get_custom_pkg_list_list(None, None)[2]
             asobo_pkg_list = Content_XML().get_custom_pkg_list_list(None, None)[1]
             custom_pkg_list = Content_XML().get_custom_pkg_list_list(None, None)[0]
-            
+
             total_pkg_status = dict()
             total_pkg_status['Total Packages']   = len(asobo_pkg_list) + len(custom_pkg_list) + len(ms_pkg_list_list)
             total_pkg_status['Enabled Packages'] = get_total_pkg_status()[0] - len(default_pkg_list) 
@@ -94,7 +112,7 @@ class App:
 
             #Search_Bar.add_earch_bar()
             dpg.add_separator()
-            
+                     
             # PRINTING CUSTOM PKG LIST
             dpg.add_text('Custom Scenery')
             dpg.add_separator()
@@ -106,17 +124,19 @@ class App:
             dpg.add_separator()
             Content_XML().get_pkg_list(asobo_pkg_list)
             dpg.add_separator()
-
+           
+            
             # PRINTING MS PKG LIST
             dpg.add_text('Microsoft Scenery')
             dpg.add_separator()
             Content_XML().get_pkg_list(ms_pkg_list_list)
             dpg.add_separator()
-          
+            
             #dpg.show_item_registry()
 
             dpg.create_viewport(title=self.app_title, width=self.width, height=self.height)
             dpg.set_primary_window("Primary Window", True)
+            dpg.set_viewport_large_icon("img\icon.ico")
             dpg.set_viewport_small_icon("img\icon.ico")
             dpg.setup_dearpygui()
             dpg.show_viewport()
@@ -130,18 +150,6 @@ class App:
 
             dpg.destroy_context()
     
-
-class Toolbar:
-    def __init__(self):
-        with dpg.viewport_menu_bar():
-                with dpg.menu(label='File'):
-                    dpg.add_menu_item(label='Save', callback=None)
-                    dpg.add_menu_item(label='Exit', callback=lambda: dpg.destroy_context())
-                
-                with dpg.menu(label='Help'):
-                    dpg.add_menu_item(label="About", callback=lambda : webbrowser.open('https://www.facebook.com/TailstrikeDesigns'))
-                    dpg.add_menu_item(label="Github", callback=lambda : webbrowser.open('https://www.github.com'))
-
 
 class Content_XML():               
 
